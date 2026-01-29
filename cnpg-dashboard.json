@@ -1,0 +1,166 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": null,
+    "links": [],
+    "panels": [
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "panels": [],
+            "title": "Cluster Status",
+            "type": "row"
+        },
+        {
+            "datasource": "${DS_PROMETHEUS}",
+            "description": "각 인스턴스의 실행 상태 (1=Up, 0=Down)",
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 1
+            },
+            "id": 3,
+            "targets": [
+                {
+                    "expr": "cnpg_collector_up",
+                    "legendFormat": "{{pod}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "인스턴스 상태 (Instance Status)",
+            "type": "state-timeline"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 9
+            },
+            "id": 4,
+            "panels": [],
+            "title": "Backups & WAL",
+            "type": "row"
+        },
+        {
+            "datasource": "${DS_PROMETHEUS}",
+            "description": "마지막 백업의 성공 여부 (1=성공, 0=실패)",
+            "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 0,
+                "y": 10
+            },
+            "id": 5,
+            "targets": [
+                {
+                    "expr": "cnpg_backup_last_status",
+                    "legendFormat": "{{cluster}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "백업 성공 여부 (Backup Status)",
+            "type": "stat"
+        },
+        {
+            "datasource": "${DS_PROMETHEUS}",
+            "description": "마지막 백업에 소요된 시간 (초)",
+            "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 8,
+                "y": 10
+            },
+            "id": 6,
+            "targets": [
+                {
+                    "expr": "cnpg_backup_last_duration_seconds",
+                    "legendFormat": "{{cluster}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "백업 소요 시간 (Backup Duration)",
+            "type": "timeseries"
+        },
+        {
+            "datasource": "${DS_PROMETHEUS}",
+            "description": "마지막 WAL 아카이빙 상태 (1=성공, 0=실패)",
+            "gridPos": {
+                "h": 8,
+                "w": 8,
+                "x": 16,
+                "y": 10
+            },
+            "id": 7,
+            "targets": [
+                {
+                    "expr": "cnpg_wal_archiving_last_status",
+                    "legendFormat": "{{cluster}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "WAL 아카이빙 상태",
+            "type": "stat"
+        }
+    ],
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [
+        "cnpg",
+        "postgresql"
+    ],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "Prometheus",
+                    "value": "Prometheus"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "label": "Datasource",
+                "multi": false,
+                "name": "DS_PROMETHEUS",
+                "options": [],
+                "query": "prometheus",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "type": "datasource"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "CNPG Operator Dashboard",
+    "uid": "cnpg-operator",
+    "version": 1,
+    "weekStart": ""
+}
